@@ -52,7 +52,7 @@ Este diseño promueve el desacoplamiento y facilita la implementación de prueba
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/usuario/repositorio.git
+git clone https://github.com/Asktonicus/prueba-ntt.git
 ```
 2. Navega al directorio del proyecto:
 ```bash
@@ -101,11 +101,10 @@ La contraseña debe cumplir con los siguientes requisitos:
 - Puede incluir caracteres especiales como: `@$!%*?&`.
 
 **Ejemplo Válido**:
-- `Contraseña1!`
+- `Contrasena1!`
 - `Password123@`
 
 **Ejemplo Inválido**:
-- `contraseña1`
 - `12345`
 - `password`
 
@@ -181,9 +180,9 @@ Actualiza datos de un usuario existente.
 **Request body (parcial o completo):**
 ```json
 {
-  "name": "Nuevo Nombre",
-  "email": "nuevo@email.com",
-  "passwd": "nuevaclave"
+  "nombre": "Nuevo Nombre",
+  "correo": "nuevo@email.com",
+  "contraseña": "nuevaclave"
 }
 ```
 
