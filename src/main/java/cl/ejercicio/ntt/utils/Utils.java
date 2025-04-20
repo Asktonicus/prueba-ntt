@@ -4,6 +4,7 @@ import cl.ejercicio.ntt.dto.user.PhoneDTO;
 import cl.ejercicio.ntt.dto.user.UserRequestDTO;
 import cl.ejercicio.ntt.model.PhoneModel;
 import cl.ejercicio.ntt.model.UserModel;
+import cl.ejercicio.ntt.validator.ValidationHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
@@ -14,15 +15,20 @@ import java.util.Optional;
 @Slf4j
 public class Utils {
 
-    public static void updateBasicInfo(UserModel model, UserRequestDTO userDto, PasswordEncoder passwordEncoder) {
+    public static void updateBasicInfo(UserModel model,
+                                       UserRequestDTO userDto,
+                                       PasswordEncoder passwordEncoder,
+                                       ValidationHandler validationHandler) {
         if (StringUtils.hasText(userDto.getName())) {
             model.setName(userDto.getName());
         }
         if (StringUtils.hasText(userDto.getEmail()) &&
                 !userDto.getEmail().equalsIgnoreCase(model.getEmail())) {
+            validationHandler.validateEmail(userDto.getEmail());
             model.setEmail(userDto.getEmail());
         }
         if (StringUtils.hasText(userDto.getPasswd())) {
+            validationHandler.validatePassword(userDto.getPasswd());
             model.setPasswd(passwordEncoder.encode(userDto.getPasswd()));
         }
     }

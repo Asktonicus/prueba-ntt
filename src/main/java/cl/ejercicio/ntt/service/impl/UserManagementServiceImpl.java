@@ -1,13 +1,11 @@
 package cl.ejercicio.ntt.service.impl;
 
 import cl.ejercicio.ntt.dto.GenericResponseDTO;
-import cl.ejercicio.ntt.dto.user.PhoneDTO;
 import cl.ejercicio.ntt.dto.user.UserRequestDTO;
 import cl.ejercicio.ntt.dto.user.UserResponseDTO;
 import cl.ejercicio.ntt.exception.EmailExistException;
 import cl.ejercicio.ntt.exception.ValidationException;
 import cl.ejercicio.ntt.mapper.MapperHelper;
-import cl.ejercicio.ntt.model.PhoneModel;
 import cl.ejercicio.ntt.model.UserLogModel;
 import cl.ejercicio.ntt.model.UserModel;
 import cl.ejercicio.ntt.repository.UserLogRepository;
@@ -21,11 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -116,7 +112,7 @@ public class UserManagementServiceImpl implements UserManagementService {
 
         validationHandler.validateUserIsActive(model);
 
-        Utils.updateBasicInfo(model, userDto, passwordEncoder);
+        Utils.updateBasicInfo(model, userDto, passwordEncoder, validationHandler);
         Utils.updatePhones(model, userDto.getPhoneList());
 
         model.setToken(generateToken(model));

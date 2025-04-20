@@ -22,13 +22,8 @@ public class ValidationHandler {
     private String pswdRegex;
 
     public void validateUserRequest(UserRequestDTO body) {
-
-        if (!body.getEmail().matches(emailRegex)) {
-            throw new ValidationException(Constants.INVALID_EMAIL_FORMAT);
-        }
-        if (!body.getPasswd().matches(pswdRegex)) {
-            throw new ValidationException(Constants.INVALID_PASSWORD_FORMAT);
-        }
+        this.validateEmail(body.getEmail());
+        this.validatePassword(body.getPasswd());
     }
 
     public void validatePhoneList(List<PhoneDTO> body) {
@@ -67,6 +62,12 @@ public class ValidationHandler {
     public void validateEmail(String email) {
         if (!email.matches(emailRegex)) {
             throw new ValidationException(Constants.INVALID_EMAIL_FORMAT);
+        }
+    }
+
+    public void validatePassword(String password) {
+        if (!password.matches(pswdRegex)) {
+            throw new ValidationException(Constants.INVALID_PASSWORD_FORMAT);
         }
     }
 
