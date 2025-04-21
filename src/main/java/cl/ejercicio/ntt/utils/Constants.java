@@ -28,6 +28,8 @@ public class Constants {
     public static final String VALIDATION_ERROR         = "Error de validación";
     public static final String BODY_CANT_EMPTY          = "El cuerpo de la solicitud no puede estar vacío";
     public static final String INTERNAL_SERVER          = "Error interno en el servidor";
+    public static final String INVALID_UUID             = "El ID proporcionado no tiene el formato UUID válido.";
+    public static final String INVALID_PARAMETER        = "Parámetro inválido: ";
 
     /**
      * Constantes de Loggeo

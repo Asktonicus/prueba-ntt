@@ -1,5 +1,6 @@
 package cl.ejercicio.ntt.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +15,17 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GenericResponseDTO {
 
+    @JsonProperty(value = "id")
     private UUID id;
+    @JsonProperty(value = "creado")
     private LocalDateTime created;
+    @JsonProperty(value = "modificado")
     private LocalDateTime modified;
+    @JsonProperty(value = "ultimoLogin")
     private LocalDateTime lastLogin;
+    @JsonProperty(value = "token")
     private String token;
+    @JsonProperty(value = "activo")
     private boolean isActive;
 
-    public GenericResponseDTO(String mensaje, String creado, String fecha) {
-    }
 }

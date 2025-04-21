@@ -19,7 +19,7 @@ Esta API permite gestionar usuarios de una plataforma, incluyendo operaciones de
 
 La arquitectura de esta API de Gestión de Usuarios sigue un enfoque multicapa para garantizar escalabilidad, mantenibilidad y separación de responsabilidades. A continuación se muestra un diagrama que describe cómo interactúan los componentes principales:
 
-![Arquitectura General](docs/arquitectura_general.png)
+![Arquitectura General](docs/diagrama_solucion.png)
 
 ### Componentes Principales:
 
@@ -36,14 +36,15 @@ Este diseño promueve el desacoplamiento y facilita la implementación de prueba
 
 ## 📦 Endpoints principales
 
-| Método  | Endpoint                   | Descripción                              |
-|---------|----------------------------|------------------------------------------|
-| POST    | `/api/users`               | Crear nuevo usuario                      |
-| PUT     | `/api/users/{id}`          | Actualizar usuario                       |
-| GET     | `/api/users`               | Obtener todos los usuarios               |
-| GET     | `/api/users/email/{email}` | Obtener un usuario por correo electrónico|
-| DELETE  | `/api/users/{id}`          | Desactivar usuario                       |
-| PATCH   | `/api/users/{id}/activate` | Activar usuario                          |
+| Método | Endpoint                   | Descripción                               |
+|--------|----------------------------|-------------------------------------------|
+| POST   | `/api/users`               | Crear nuevo usuario                       |
+| PUT    | `/api/users/{id}`          | Actualizar usuario                        |
+| GET    | `/api/users`               | Obtener todos los usuarios                |
+| GET    | `/api/users/email/{email}` | Obtener un usuario por correo electrónico |
+| DELETE | `/api/users/{id}`          | Desactivar usuario                        |
+| PATCH  | `/api/users/{id}/activate` | Activar usuario                           |
+| GET    | `/api/logs`                | Obtiene los registros de Logs generados   |
 
 ---
 
@@ -125,7 +126,7 @@ Crea un nuevo usuario.
 {
   "nombre": "Juan Rodriguez",
   "correo": "juan@rodriguez.org",
-  "contraseña": "Contraseña1!",
+  "contraseña": "Contrasena1!",
   "telefonos": [
     {
       "numero": "1234567",
@@ -146,7 +147,7 @@ Crea un nuevo usuario.
 
 `GET /api/users`
 
-Obtiene una lista paginada de todos los usuarios.
+Obtiene una lista paginada de todos los usuarios. Por defecto muestra una página de 10 registros.
 
 **Parámetros opcionales:**
 - `page` (int)
@@ -168,6 +169,7 @@ Busca un usuario por su dirección de correo electrónico.
 **Respuesta:**
 - `200 OK`: Usuario encontrado
 - `400 Bad Request`: Email inválido
+- `404 Bad Request`: Email no encontrado
 
 ---
 
@@ -182,13 +184,14 @@ Actualiza datos de un usuario existente.
 {
   "nombre": "Nuevo Nombre",
   "correo": "nuevo@email.com",
-  "contraseña": "nuevaclave"
+  "contraseña": "Password123@"
 }
 ```
 
 **Respuesta:**
 - `200 OK`: Usuario actualizado
-- `400 Bad Request`: Datos inválidos
+- `400 Bad Request`: ID Inválido
+- `404 Not Found`: Usuario no encontrado
 
 ---
 
@@ -200,6 +203,7 @@ Desactiva lógicamente a un usuario (soft delete).
 
 **Respuesta:**
 - `200 OK`: Usuario desactivado
+- `400 Bad Request`: ID Inválido
 - `404 Not Found`: Usuario no encontrado
 
 ---
@@ -212,9 +216,25 @@ Activa un usuario previamente desactivado.
 
 **Respuesta:**
 - `200 OK`: Usuario activado
+- `400 Bad Request`: ID Inválido
 - `404 Not Found`: Usuario no encontrado
 
 ---
+
+### 🔍 Consulta de Logs
+
+`GET /api/logs`
+
+Consulta los logs generados al momento de Crear, Eliminar, Activar y/o Actualizar un usuario. Por defecto muestra una página de 10 registros.
+
+**Parámetros opcionales:**
+- `page` (int)
+- `size` (int)
+- `userId` (UUID)
+
+**Respuesta:**
+- `200 OK`: Página de logs
+
 
 ## 🛢️ Conexión a la Base de Datos H2
 Durante el desarrollo, esta aplicación utiliza una base de datos en memoria H2. Puedes acceder a la consola web de H2 para explorar las tablas y datos de forma interactiva.

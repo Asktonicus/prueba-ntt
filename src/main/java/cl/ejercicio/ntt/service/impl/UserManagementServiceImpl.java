@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,6 +51,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
+    @Transactional
     public GenericResponseDTO addUser(UserRequestDTO userDto) {
         log.info("UserManagementServiceImpl:::addUser for eMail: {}", userDto.getEmail());
         validationHandler.validateUserRequest(userDto);
@@ -104,6 +106,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
+    @Transactional
     public UserResponseDTO updateUser(UUID id, UserRequestDTO userDto) {
         log.info("UserManagementServiceImpl:::updateUser for UUID: {}", id);
 
@@ -127,6 +130,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
+    @Transactional
     public void deleteUser(UUID id) {
         log.info("UserManagementServiceImpl:::deleteUser for UUID: {}", id);
         UserModel model = userManagementRepository
@@ -144,6 +148,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
+    @Transactional
     public void activateUser(UUID id) {
         log.info("UserManagementServiceImpl:::activateUser for UUID: {}", id);
         UserModel model = userManagementRepository.findById(id)

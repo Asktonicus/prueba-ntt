@@ -87,7 +87,7 @@ public class UserManagementController {
         try {
             return ResponseEntity.ok(userManagementService.getByEmail(email));
         } catch (EmailExistException | ValidationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of(Constants.MSG, e.getMessage()));
         }
     }
@@ -95,9 +95,9 @@ public class UserManagementController {
     @Operation(summary = "Actualiza usuarios")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuario actualizado correctamente"),
-            @ApiResponse(responseCode = "400", description = "Datos inválidos",
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado",
                     content = @Content(mediaType = "application/json",
-                    examples = @ExampleObject(value = "{\"mensaje\": \"Datos inválidos para actualizar\"}")))
+                    examples = @ExampleObject(value = "{\"mensaje\": \"Usuario no encontrado con ID:\"}")))
     })
     @PutMapping("/{id}")
     public UserResponseDTO updateUser(
