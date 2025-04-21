@@ -147,12 +147,12 @@ Crea un nuevo usuario.
 
 `GET /api/users`
 
-Obtiene una lista paginada de todos los usuarios. Por defecto muestra una página de 10 registros.
+Obtiene una lista paginada de todos los usuarios. Por defecto muestra una página de diez registros.
 
 **Parámetros opcionales:**
 - `page` (int)
 - `size` (int)
-- `orden` (campo para ordenar)
+- `orden` (campo para ordenar bajo `name`, `email`, `creationDate`, `updateDate` o `lastLogin`)
 - `estado` (`activos`, `inactivos`)
 
 **Respuesta:**
@@ -225,7 +225,7 @@ Activa un usuario previamente desactivado.
 
 `GET /api/logs`
 
-Consulta los logs generados al momento de Crear, Eliminar, Activar y/o Actualizar un usuario. Por defecto muestra una página de 10 registros.
+Consulta los logs generados al momento de Crear, Eliminar, Activar y/o Actualizar un usuario. Por defecto muestra una página de diez registros.
 
 **Parámetros opcionales:**
 - `page` (int)
